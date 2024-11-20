@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewData["Title"] = "List User";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@model IEnumerable<User>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+            <h4 class="mb-sm-0">Products</h4>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+
+
+    <div class="col-xl-12 col-lg-12">
+        <div>
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="row g-4">
+                        <div class="col-sm-auto">
+                            <div>
+                                <a asp-controller="User" asp-action="Create" class="btn btn-success" id="addproduct-btn"><i class="ri-add-line align-bottom me-1"></i> Add Product</a>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="d-flex justify-content-sm-end">
+                                <div class="search-box ms-2">
+                                    <input type="text" class="form-control" id="searchProductList" placeholder="Search Products...">
+                                    <i class="ri-search-line search-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- end card header -->
+                <div class="card-body">
+
+                    <div class="tab-content text-muted">
+                        <div class="tab-pane active" id="productnav-all" role="tabpanel">
+                            <div id="table-product-list-all" class="table-card gridjs-border-none">
+                                <div role="complementary" class="gridjs gridjs-container" style="width: 100%;">
+                                    <div class="gridjs-wrapper" style="height: auto;">
+                                        <table role="grid" class="gridjs-table" style="height: auto;">
+                                            <thead class="gridjs-thead">
+                                                <tr class="gridjs-tr">
+                                                    <th class="gridjs-th gridjs-th-sort text-muted" tabindex="0"
+                                                        style="width: 40px;">
+                                                        <div class="gridjs-th-content">#</div>
+                                                    </th>
+                                                    <th class="gridjs-th gridjs-th-sort text-muted"
+                                                        tabindex="0" style="width: 360px;">
+                                                        <div class="gridjs-th-content">User</div>
+                                                    </th>
+                                                    <th class="gridjs-th gridjs-th-sort text-muted"
+                                                        tabindex="0" style="width: 94px;">
+                                                        <div class="gridjs-th-content">Full Name</div>
+                                                    </th>
+                                                    <th class="gridjs-th gridjs-th-sort text-muted"
+                                                        tabindex="0" style="width: 101px;">
+                                                        <div class="gridjs-th-content">Phone</div>
+                                                   
+                                                    <th class="gridjs-th gridjs-th-sort text-muted"
+                                                        tabindex="0" style="width: 80px;">
+                                                        <div class="gridjs-th-content">Action</div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="gridjs-tbody">
+                                                @foreach (var u in Model)
+                                                {
+                                                    <tr class="gridjs-tr">
+                                                        <td class="gridjs-td">@u.Id</td>
+                                                        <td class="gridjs-td">
+                                                            <span>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="flex-shrink-0 me-3">
+                                                                        <div class="avatar-sm bg-light rounded p-1">
+                                                                            <img src="/images/avatar/@u.Avatar" alt=""
+                                                                                 class="img-fluid d-block">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="flex-grow-1">
+                                                                        <h5 class="fs-14 mb-1">
+                                                                            <a href="#"
+                                                                               class="text-body">@u.Username</a>
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                        <td class="gridjs-td">@u.FullName</td>
+                                                        <td class="gridjs-td"><span>@u.Phone</span></td>
+
+                                                        <td class="gridjs-td">
+                                                            <span>
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
+                                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <i class="ri-more-fill"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                                        
+                                                                        <li>
+                                                                            <a class="dropdown-item edit-list"
+                                                                               asp-controller="User" asp-action="Update" asp-route-Id="@u.Id">
+                                                                                <i class="ri-eye-fill align-bottom me-2 text-muted"></i>
+                                                                                View
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="dropdown-divider"></li>
+                                                                        <li>
+                                                                            <a class="dropdown-item remove-list"
+                                                                               asp-controller="User" asp-action="Delete" asp-route-Id="@u.Id"
+                                                                               onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?');">
+                                                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="gridjs-footer">
+                                        <div class="gridjs-pagination">
+
+                                            <div class="gridjs-pages">
+                                                <button tabindex="0" role="button" disabled=""
+                                                        title="Previous" aria-label="Previous" class="">
+                                                    Previous
+                                                </button><button tabindex="0" role="button" class="gridjs-currentPage" title="Page 1"
+                                                                 aria-label="Page 1">
+                                                    1
+                                                </button><button tabindex="0" role="button" class=""
+                                                                 title="Page 2" aria-label="Page 2">
+                                                    2
+                                                </button><button tabindex="0" role="button"
+                                                                 title="Next" aria-label="Next" class="">
+                                                    Next
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="gridjs-temp" class="gridjs-temp"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end tab pane -->
+
+
+
+                        <div class="tab-pane" id="productnav-draft" role="tabpanel">
+                            <div class="py-4 text-center">
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                           colors="primary:#405189,secondary:#0ab39c" style="width:72px;height:72px">
+                                </lord-icon>
+                                <h5 class="mt-4">Sorry! No Result Found</h5>
+                            </div>
+                        </div>
+                        <!-- end tab pane -->
+                    </div>
+                    <!-- end tab content -->
+
+                </div>
+            </div>
+            <!-- end card -->
+        </div>
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->
